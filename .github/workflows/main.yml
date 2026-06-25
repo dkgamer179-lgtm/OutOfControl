@@ -1,0 +1,16 @@
+name: Build EXE
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    - name: Build Code
+      run: csc.exe /target:winexe /out:OutOfControl.exe Program.cs
+    - name: Upload EXE
+      uses: actions/upload-artifact@v4
+      with:
+        name: OutOfControl-Software
+        path: OutOfControl.exe
